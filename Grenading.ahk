@@ -1,4 +1,4 @@
-﻿Grenading := false
+Grenading := false
 GrenadedTickTiming := A_TickCount
 Chatting := false
 
@@ -20,6 +20,13 @@ return
 #IfWinActive Roblox
 ~LButton::
 Keywait, LButton
+SetWorkingDir %A_ScriptDir%
+WinSet, Transparent, Off
+ImageSearch,,, 0, 0, A_ScreenWidth, A_ScreenHeight, grenade-icon.png
+if (ErrorLevel = 1) {
+} else {
+  return
+}
 MouseGetPos, xpos
 if WinExist("Roblox") {
   WinGetPos,, winy,, winh
