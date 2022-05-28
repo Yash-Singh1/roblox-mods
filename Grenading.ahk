@@ -3,8 +3,22 @@
 ; If for some reason your grenades just immediately throw, try /+Esc to turn on the chat then turn it off
 
 Grenading := false
-GrenadedTickTiming := A_TickCount
 Chatting := false
+
+#Persistent
+SetTimer, CheckIfPlaying, 100
+
+CheckIfPlaying:
+WinGetActiveTitle, currentTitle
+if (currentTitle != "Roblox") {
+  return
+}
+WinGetPos, X, Y, width, height, Roblox
+ImageSearch,,, X + (width * 3 / 4), Y + (height * 3 / 4), X + width, Y + height, *2 grenade-icon.png
+if (ErrorLevel = 1) {
+  Grenading := false
+}
+return
 
 #IfWinActive Roblox
 ~/::
@@ -26,7 +40,8 @@ return
 Keywait, LButton
 SetWorkingDir %A_ScriptDir%
 WinSet, Transparent, Off
-ImageSearch,,, 0, 0, A_ScreenWidth, A_ScreenHeight, *2 grenade-icon.png
+WinGetPos, X, Y, width, height, Roblox
+ImageSearch,,, X + (width * 3 / 4), Y + (height * 3 / 4), X + width, Y + height, *2 grenade-icon.png
 if (ErrorLevel = 1) {
 } else {
   return
@@ -34,7 +49,6 @@ if (ErrorLevel = 1) {
 MouseGetPos, xpos
 if WinExist("Roblox") {
   WinGetPos,, winy,, winh
-  x := xpos - winx
   y := winh - (ypos - winy)
   if (y <= 20) {
     Chatting := true
@@ -50,15 +64,11 @@ if Chatting {
   Send g
   return
 }
-if (Grenading and A_TickCount - GrenadedTickTiming > 5000) {
-  Grenading := false
-}
 if Grenading {
   Send {g up}
   Grenading := false
 } else {
   Send {g down}
   Grenading := true
-  GrenadedTickTiming := A_TickCount
 }
 return
