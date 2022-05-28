@@ -1,3 +1,7 @@
+; Allows you to press g to take out grenade and press g again to launch grenade
+; Original is press g and hold to cook grenade and let go to launch grenade
+; If for some reason your grenades just immediately throw, try /+Esc to turn on the chat then turn it off
+
 Grenading := false
 GrenadedTickTiming := A_TickCount
 Chatting := false
