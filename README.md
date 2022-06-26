@@ -1,6 +1,6 @@
-# phantom-forces-mods
+# roblox-mods
 
-AutoHotKey mods for Phantom Forces Roblox.
+AutoHotKey mods for Roblox.
 
 ## Installation
 
